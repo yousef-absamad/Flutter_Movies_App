@@ -18,8 +18,8 @@ class MovieModel extends Movie {
       imageUrl: json["backdrop_path"],
       genreIds: List<int>.from(json["genre_ids"].map((e) => e)),
       overView: json["overview"],
-      voteAverage: json["vote_average"],
-      releasData: json["releas_data"],
+      voteAverage: (json["vote_average"] as num).toDouble(),
+      releasData: json["releas_data"] ?? "",
     );
   }
 }
