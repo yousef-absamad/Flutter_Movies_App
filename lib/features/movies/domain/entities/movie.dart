@@ -5,7 +5,7 @@ class Movie {
   final List<int> genreIds;
   final String overView;
   final double voteAverage;
-  final double releasData;
+  final String releasData;
 
   const Movie({
     required this.id,
