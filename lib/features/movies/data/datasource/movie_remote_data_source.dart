@@ -6,16 +6,15 @@ import 'package:flutter_movies/features/movies/data/models/movie_model.dart';
 import '../../../../core/network/api_constance.dart';
 
 abstract class BaseMovieRemoteDataSource {
-   Future<List<MovieModel>> getNowPlayingMovies();
-   Future<List<MovieModel>> getPopularMovies();
-   Future<List<MovieModel>> getTopRatedMovies();
+  Future<List<MovieModel>> getNowPlayingMovies();
+  Future<List<MovieModel>> getPopularMovies();
+  Future<List<MovieModel>> getTopRatedMovies();
 }
 
 class MovieRemoteDataSource extends BaseMovieRemoteDataSource {
   @override
   Future<List<MovieModel>> getNowPlayingMovies() async {
     final response = await Dio().get(ApiConstance.nowPlayingUrl);
-
     if (response.statusCode == 200) {
       return List<MovieModel>.from(
         (response.data["results"] as List).map((e) => MovieModel.fromJson(e)),
@@ -24,11 +23,10 @@ class MovieRemoteDataSource extends BaseMovieRemoteDataSource {
       throw ServerException(ErrorMessageModel.fromJson(response.data));
     }
   }
-  
+
   @override
-  Future<List<MovieModel>> getPopularMovies() async{
+  Future<List<MovieModel>> getPopularMovies() async {
     final response = await Dio().get(ApiConstance.popularUrl);
-
     if (response.statusCode == 200) {
       return List<MovieModel>.from(
         (response.data["results"] as List).map((e) => MovieModel.fromJson(e)),
@@ -37,11 +35,10 @@ class MovieRemoteDataSource extends BaseMovieRemoteDataSource {
       throw ServerException(ErrorMessageModel.fromJson(response.data));
     }
   }
-  
+
   @override
-  Future<List<MovieModel>> getTopRatedMovies() async{
-     final response = await Dio().get(ApiConstance.topRatedUrl);
-
+  Future<List<MovieModel>> getTopRatedMovies() async {
+    final response = await Dio().get(ApiConstance.topRatedUrl);
     if (response.statusCode == 200) {
       return List<MovieModel>.from(
         (response.data["results"] as List).map((e) => MovieModel.fromJson(e)),
@@ -50,6 +47,4 @@ class MovieRemoteDataSource extends BaseMovieRemoteDataSource {
       throw ServerException(ErrorMessageModel.fromJson(response.data));
     }
   }
-  
-  
 }

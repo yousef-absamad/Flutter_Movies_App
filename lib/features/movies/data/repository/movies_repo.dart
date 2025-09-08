@@ -18,26 +18,24 @@ class MoviesRepo extends BaseMovieRepo {
       return Left(ServerFailure(failure.errorMessageModel));
     }
   }
-  
+
   @override
   Future<Either<Failure, List<Movie>>> getPopularMovies() async {
-   try {
+    try {
       final result = await baseMovieRemoteDataSource.getPopularMovies();
       return Right(result);
     } on ServerException catch (failure) {
       return Left(ServerFailure(failure.errorMessageModel));
     }
   }
-  
+
   @override
-  Future<Either<Failure, List<Movie>>> getTopRatedMovies() async{
-     try {
+  Future<Either<Failure, List<Movie>>> getTopRatedMovies() async {
+    try {
       final result = await baseMovieRemoteDataSource.getTopRatedMovies();
       return Right(result);
     } on ServerException catch (failure) {
       return Left(ServerFailure(failure.errorMessageModel));
     }
   }
-
-  
 }

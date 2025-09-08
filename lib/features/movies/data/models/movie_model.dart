@@ -1,5 +1,4 @@
 import 'package:flutter_movies/features/movies/domain/entities/movie.dart';
-
 class MovieModel extends Movie {
   MovieModel({
     required super.id,
@@ -8,7 +7,7 @@ class MovieModel extends Movie {
     required super.genreIds,
     required super.overView,
     required super.voteAverage,
-    required super.releasData,
+    required super.releaseDate,
   });
 
   factory MovieModel.fromJson(Map<String, dynamic> json) {
@@ -19,7 +18,7 @@ class MovieModel extends Movie {
       genreIds: List<int>.from(json["genre_ids"].map((e) => e)),
       overView: json["overview"],
       voteAverage: (json["vote_average"] as num).toDouble(),
-      releasData: json["releas_data"] ?? "",
+      releaseDate: json["releas_data"] ?? "",
     );
   }
 }
