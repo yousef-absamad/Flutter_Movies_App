@@ -5,7 +5,7 @@ class Movie {
   final List<int> genreIds;
   final String overView;
   final double voteAverage;
-  final String releasData;
+  final String releaseDate;
 
   const Movie({
     required this.id,
@@ -14,7 +14,7 @@ class Movie {
     required this.genreIds,
     required this.overView,
     required this.voteAverage,
-    required this.releasData
+    required this.releaseDate,
   });
 
   @override
@@ -28,7 +28,7 @@ class Movie {
           genreIds == other.genreIds &&
           overView == other.overView &&
           voteAverage == other.voteAverage &&
-          releasData == other.releasData;
+          releaseDate == other.releaseDate;
 
   @override
   int get hashCode =>
@@ -38,5 +38,5 @@ class Movie {
       genreIds.hashCode ^
       overView.hashCode ^
       voteAverage.hashCode ^
-      releasData.hashCode;
+      releaseDate.hashCode;
 }
