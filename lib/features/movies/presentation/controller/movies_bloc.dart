@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_movies/core/usecase/base_usecase.dart';
 import 'package:flutter_movies/core/utils/enums.dart';
 import 'package:flutter_movies/features/movies/domain/usecases/get_now_playing_movies_usecase.dart';
 import 'package:flutter_movies/features/movies/domain/usecases/get_popular_movies_usecase.dart';
@@ -27,7 +28,7 @@ class MoviesBloc extends Bloc<MoviesEvent, MoviesState> {
     GetNowPlayingMoviesEvent event,
     Emitter<MoviesState> emit,
   ) async {
-    final result = await getNowPlayingMoviesUsecase();
+    final result = await getNowPlayingMoviesUsecase(const NoParameters());
     result.fold(
       (failure) {
         emit(
@@ -54,7 +55,7 @@ class MoviesBloc extends Bloc<MoviesEvent, MoviesState> {
     GetPopularMoviesEvent event,
     Emitter<MoviesState> emit,
   ) async {
-    final result = await getPopularMoviesUsecase();
+    final result = await getPopularMoviesUsecase(const NoParameters());
     result.fold(
       (failure) {
         emit(
@@ -81,7 +82,7 @@ class MoviesBloc extends Bloc<MoviesEvent, MoviesState> {
     GetTopRatedMoviesEvent event,
     Emitter<MoviesState> emit,
   ) async {
-    final result = await getTopRatedMoviesUsecase();
+    final result = await getTopRatedMoviesUsecase(const NoParameters());
     result.fold(
       (failure) {
         emit(

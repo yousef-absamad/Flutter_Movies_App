@@ -5,11 +5,11 @@ import 'package:flutter_movies/features/movies/domain/repository/base_movie_repo
 
 import '../../../../core/error/failure.dart';
 
-class GetNowPlayingMoviesUsecase extends BaseUsecase<List<Movie>> {
+class GetNowPlayingMoviesUsecase extends BaseUsecase<List<Movie> , NoParameters> {
   final BaseMovieRepo baseMovieRepo;
   GetNowPlayingMoviesUsecase(this.baseMovieRepo);
   @override
-  Future<Either<Failure, List<Movie>>> call() async {
+  Future<Either<Failure, List<Movie>>> call(NoParameters parameters) async {
     return await baseMovieRepo.getNowPlayingMovies();
   }
 }
