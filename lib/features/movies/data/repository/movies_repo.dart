@@ -4,6 +4,7 @@ import 'package:flutter_movies/core/error/failure.dart';
 import 'package:flutter_movies/features/movies/data/datasource/movie_remote_data_source.dart';
 import 'package:flutter_movies/features/movies/domain/entities/movie.dart';
 import 'package:flutter_movies/features/movies/domain/entities/movie_details.dart';
+import 'package:flutter_movies/features/movies/domain/entities/recommendation.dart';
 import 'package:flutter_movies/features/movies/domain/repository/base_movie_repo.dart';
 
 class MoviesRepo extends BaseMovieRepo {
@@ -39,11 +40,27 @@ class MoviesRepo extends BaseMovieRepo {
       return Left(ServerFailure(failure.errorMessageModel));
     }
   }
-  
+
   @override
-  Future<Either<Failure, MovieDetails>> getMovieDetails(int parameters)async {
-      try {
-      final result = await baseMovieRemoteDataSource.getMovieDetails(parameters);
+  Future<Either<Failure, MovieDetails>> getMovieDetails(int parameters) async {
+    try {
+      final result = await baseMovieRemoteDataSource.getMovieDetails(
+        parameters,
+      );
+      return Right(result);
+    } on ServerException catch (failure) {
+      return Left(ServerFailure(failure.errorMessageModel));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<MovieRecommendation>>> getRecommendation(
+    int parameters,
+  ) async {
+    try {
+      final result = await baseMovieRemoteDataSource.getMovieRecommendation(
+        parameters,
+      );
       return Right(result);
     } on ServerException catch (failure) {
       return Left(ServerFailure(failure.errorMessageModel));
