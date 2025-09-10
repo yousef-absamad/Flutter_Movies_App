@@ -2,9 +2,11 @@ import 'package:animate_do/animate_do.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_movies/core/routing/app_routes.dart';
 import 'package:flutter_movies/core/utils/enums.dart';
 import 'package:flutter_movies/features/movies/presentation/controller/movies_bloc.dart';
 import 'package:flutter_movies/features/movies/presentation/controller/movies_state.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../../core/network/api_constance.dart';
@@ -40,7 +42,10 @@ class TopRatedComponent extends StatelessWidget {
                       padding: const EdgeInsets.only(right: 8.0),
                       child: InkWell(
                         onTap: () {
-                          /// TODO : NAVIGATE TO  MOVIE DETAILS
+                          GoRouter.of(context).pushNamed(
+                            AppRoutes.movieDetailsScreen,
+                            extra: movie.id,
+                          );
                         },
                         child: ClipRRect(
                           borderRadius: const BorderRadius.all(
@@ -49,9 +54,6 @@ class TopRatedComponent extends StatelessWidget {
                           child: CachedNetworkImage(
                             width: 120.0,
                             fit: BoxFit.cover,
-
-                            // imageUrl:
-                            //     "https://images.pexels.com/photos/21777756/pexels-photo-21777756.jpeg?_gl=1*sldk8d*_ga*MzA2ODcyNjI0LjE3Mzg5NzQ5ODg.*_ga_8JE65Q40S6*czE3NTI1ODQyNzEkbzUkZzEkdDE3NTI1ODQ0MDAkajE3JGwwJGgw",
                             imageUrl: ApiConstance.imageUrl(movie.imageUrl),
                             placeholder: (context, url) => Shimmer.fromColors(
                               baseColor: Colors.grey[850]!,

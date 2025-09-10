@@ -4,9 +4,11 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_movies/core/network/api_constance.dart';
+import 'package:flutter_movies/core/routing/app_routes.dart';
 import 'package:flutter_movies/core/utils/enums.dart';
 import 'package:flutter_movies/features/movies/presentation/controller/movies_bloc.dart';
 import 'package:flutter_movies/features/movies/presentation/controller/movies_state.dart';
+import 'package:go_router/go_router.dart';
 
 class NowPlayingComponent extends StatelessWidget {
   const NowPlayingComponent({super.key});
@@ -14,7 +16,8 @@ class NowPlayingComponent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<MoviesBloc, MoviesState>(
-      buildWhen: (previous, current) => previous.nowPlayingState != current.nowPlayingState,
+      buildWhen: (previous, current) =>
+          previous.nowPlayingState != current.nowPlayingState,
       builder: (context, state) {
         switch (state.nowPlayingState) {
           case RequestState.loading:
@@ -36,7 +39,9 @@ class NowPlayingComponent extends StatelessWidget {
                   return GestureDetector(
                     key: const Key('openMovieMinimalDetail'),
                     onTap: () {
-                      /// TODO : NAVIGATE TO MOVIE DETAILS
+                      GoRouter.of(
+                        context,
+                      ).pushNamed(AppRoutes.movieDetailsScreen, extra: item.id);
                     },
                     child: Stack(
                       children: [
@@ -60,8 +65,6 @@ class NowPlayingComponent extends StatelessWidget {
                           blendMode: BlendMode.dstIn,
                           child: CachedNetworkImage(
                             height: 560.0,
-                            // imageUrl:
-                            //     "https://images.pexels.com/photos/12935093/pexels-photo-12935093.jpeg?_gl=1*1fn52xl*_ga*MzA2ODcyNjI0LjE3Mzg5NzQ5ODg.*_ga_8JE65Q40S6*czE3NTI1ODQyNzEkbzUkZzEkdDE3NTI1ODQ0NTckajM0JGwwJGgw",
                             imageUrl: ApiConstance.imageUrl(item.imageUrl),
                             fit: BoxFit.cover,
                           ),
