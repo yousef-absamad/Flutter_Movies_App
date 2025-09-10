@@ -2,13 +2,13 @@ import 'package:flutter_movies/features/movies/domain/entities/recommendation.da
 
 class MovieRecommendationModel extends MovieRecommendation {
   const MovieRecommendationModel({
-    required super.backdropPath,
+    super.backdropPath,
     required super.id,
   });
 
   factory MovieRecommendationModel.fromJson(Map<String, dynamic> json) {
     return MovieRecommendationModel(
-      backdropPath: json["backdrop_path"],
+      backdropPath: json["backdrop_path"] ?? "",
       id: json["id"],
     );
   }

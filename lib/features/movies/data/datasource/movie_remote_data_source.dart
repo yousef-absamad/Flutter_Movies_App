@@ -72,7 +72,9 @@ class MovieRemoteDataSource extends BaseMovieRemoteDataSource {
     );
     if (response.statusCode == 200) {
       return List<MovieRecommendationModel>.from(
-        (response.data["results"] as List).map((e) => MovieRecommendationModel.fromJson(e)),
+        (response.data["results"] as List).map(
+          (e) => MovieRecommendationModel.fromJson(e),
+        ),
       );
     } else {
       throw ServerException(ErrorMessageModel.fromJson(response.data));

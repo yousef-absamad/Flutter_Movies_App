@@ -18,11 +18,11 @@ class MovieDetailsModel extends MovieDetails {
       backdropPath: json["backdrop_path"],
       genres: List<GenresModel>.from(json['genres'].map((x) => GenresModel.fromJson(x))),
       id: json["id"],
-      overView: json["over_view"],
+      overView: json["overview"],
       releaseDate: json["release_date"],
-      runTime: json["run_time"],
+      runTime: json["runtime"],
       title: json["title"],
-      voteAverage: json["vote_average"],
+      voteAverage: (json["vote_average"] as num).toDouble(),
     );
   }
 }
