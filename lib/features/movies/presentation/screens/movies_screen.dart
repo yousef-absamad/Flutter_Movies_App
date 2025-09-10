@@ -1,8 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_movies/core/services/services_lacator.dart';
-import 'package:flutter_movies/features/movies/presentation/controller/movies_bloc.dart';
-import 'package:flutter_movies/features/movies/presentation/controller/movies_event.dart';
 import 'package:flutter_movies/features/movies/presentation/widgets/now_playing_component.dart';
 import 'package:flutter_movies/features/movies/presentation/widgets/popular_component.dart';
 import 'package:flutter_movies/features/movies/presentation/widgets/top_rated_component.dart';
