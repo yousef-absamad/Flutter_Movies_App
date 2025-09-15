@@ -10,8 +10,8 @@ import '../../../../core/network/api_constance.dart';
 
 abstract class BaseMovieRemoteDataSource {
   Future<List<MovieModel>> getNowPlayingMovies();
-  Future<List<MovieModel>> getPopularMovies();
-  Future<List<MovieModel>> getTopRatedMovies();
+  Future<List<MovieModel>> getPopularMovies(int pageNum);
+  Future<List<MovieModel>> getTopRatedMovies(int pageNum);
   Future<MovieDetailsModel> getMovieDetails(int parameters);
   Future<List<MovieRecommendation>> getMovieRecommendation(int parameters);
 }
@@ -30,8 +30,8 @@ class MovieRemoteDataSource extends BaseMovieRemoteDataSource {
   }
 
   @override
-  Future<List<MovieModel>> getPopularMovies() async {
-    final response = await Dio().get(ApiConstance.popularUrl);
+  Future<List<MovieModel>> getPopularMovies(int pageNum) async {
+    final response = await Dio().get(ApiConstance.popularUrl(pageNum));
     if (response.statusCode == 200) {
       return List<MovieModel>.from(
         (response.data["results"] as List).map((e) => MovieModel.fromJson(e)),
@@ -42,8 +42,8 @@ class MovieRemoteDataSource extends BaseMovieRemoteDataSource {
   }
 
   @override
-  Future<List<MovieModel>> getTopRatedMovies() async {
-    final response = await Dio().get(ApiConstance.topRatedUrl);
+  Future<List<MovieModel>> getTopRatedMovies(int pageNum) async {
+    final response = await Dio().get(ApiConstance.topRatedUrl(pageNum));
     if (response.statusCode == 200) {
       return List<MovieModel>.from(
         (response.data["results"] as List).map((e) => MovieModel.fromJson(e)),

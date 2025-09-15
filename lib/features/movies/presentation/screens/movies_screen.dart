@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_movies/core/utils/enums.dart';
+import 'package:flutter_movies/features/movies/presentation/controller/movies_bloc.dart';
+import 'package:flutter_movies/features/movies/presentation/screens/see_more_screen.dart';
 import 'package:flutter_movies/features/movies/presentation/widgets/now_playing_component.dart';
 import 'package:flutter_movies/features/movies/presentation/widgets/popular_component.dart';
 import 'package:flutter_movies/features/movies/presentation/widgets/top_rated_component.dart';
@@ -9,6 +13,7 @@ class MainMoviesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final moviesBloc = context.read<MoviesBloc>();
     return SafeArea(
       child: Scaffold(
         backgroundColor: const Color.fromARGB(225, 255, 255, 255),
@@ -33,7 +38,21 @@ class MainMoviesScreen extends StatelessWidget {
                     ),
                     InkWell(
                       onTap: () {
-                        /// TODO : NAVIGATION TO POPULAR SCREEN
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return BlocProvider.value(
+                                value: moviesBloc,
+                                child: SeeMoreScreen(
+                                  seeMoreArgs: SeeMoreArgs(
+                                    pageName: "Popular",
+                                    category: MovieCategory.popular,
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        );
                       },
                       child: const Padding(
                         padding: EdgeInsets.all(8.0),
@@ -64,7 +83,21 @@ class MainMoviesScreen extends StatelessWidget {
                     ),
                     InkWell(
                       onTap: () {
-                        /// TODO : NAVIGATION TO Top Rated Movies Screen
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return BlocProvider.value(
+                                value: moviesBloc,
+                                child: SeeMoreScreen(
+                                  seeMoreArgs: SeeMoreArgs(
+                                    pageName: "Top Rated",
+                                    category: MovieCategory.topRated,
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        );
                       },
                       child: const Padding(
                         padding: EdgeInsets.all(8.0),

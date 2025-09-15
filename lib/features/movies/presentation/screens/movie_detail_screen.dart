@@ -6,6 +6,7 @@ import 'package:flutter_movies/core/network/api_constance.dart';
 import 'package:flutter_movies/core/utils/enums.dart';
 import 'package:flutter_movies/features/movies/domain/entities/geners.dart';
 import 'package:flutter_movies/features/movies/presentation/controller/movie_details_bloc.dart';
+import 'package:flutter_movies/features/movies/presentation/widgets/movies_recommendations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -118,15 +119,6 @@ class MovieDetailContent extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          // Text(
-                          //   state.movieDetails!.title,
-                          //   style: GoogleFonts.poppins(
-                          //     fontSize: 23,
-                          //     fontWeight: FontWeight.w700,
-                          //     letterSpacing: 1.2,
-                          //   ),
-                          // ),
-                          //const SizedBox(height: 8.0),
                           Row(
                             children: [
                               Container(
@@ -229,9 +221,9 @@ class MovieDetailContent extends StatelessWidget {
                     ),
                   ),
                 ),
-                SliverPadding(
-                  padding: const EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 24.0),
-                  sliver: _showRecommendations(),
+                const SliverPadding(
+                  padding: EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 24.0),
+                  sliver: MoviesRecommendations(),
                 ),
               ],
             );
@@ -267,69 +259,5 @@ class MovieDetailContent extends StatelessWidget {
     } else {
       return '${minutes}m';
     }
-  }
-
-  Widget _showRecommendations() {
-    return BlocBuilder<MovieDetailsBloc, MovieDetailsState>(
-      builder: (context, state) {
-        switch (state.movieRecommendationState) {
-          case RequestState.loading:
-            return const SliverToBoxAdapter(
-              child: SizedBox(
-                height: 400,
-                child: Center(child: CircularProgressIndicator()),
-              ),
-            );
-          case RequestState.loaded:
-            return SliverGrid(
-              delegate: SliverChildBuilderDelegate((context, index) {
-                final recommendation = state.movieRecommendation[index];
-                return FadeInUp(
-                  from: 20,
-                  duration: const Duration(milliseconds: 500),
-                  child: ClipRRect(
-                    borderRadius: const BorderRadius.all(Radius.circular(4.0)),
-                    child: CachedNetworkImage(
-                      imageUrl: ApiConstance.imageUrl(
-                        recommendation.backdropPath ??
-                            "/dg1VXTXSChZG3O5c1Op5kozbi2q.jpg",
-                      ),
-                      placeholder: (context, url) => Shimmer.fromColors(
-                        baseColor: Colors.grey[850]!,
-                        highlightColor: Colors.grey[800]!,
-                        child: Container(
-                          height: 170.0,
-                          width: 120.0,
-                          decoration: BoxDecoration(
-                            color: Colors.black,
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                        ),
-                      ),
-                      errorWidget: (context, url, error) =>
-                          const Icon(Icons.error),
-                      height: 180.0,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                );
-              }, childCount: state.movieRecommendation.length),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                mainAxisSpacing: 8.0,
-                crossAxisSpacing: 8.0,
-                childAspectRatio: 0.7,
-                crossAxisCount: 3,
-              ),
-            );
-          case RequestState.error:
-            return SliverToBoxAdapter(
-              child: SizedBox(
-                height: 400,
-                child: Center(child: Text(state.movieRecommendationMessage)),
-              ),
-            );
-        }
-      },
-    );
   }
 }

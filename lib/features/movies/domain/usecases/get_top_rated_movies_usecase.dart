@@ -5,12 +5,12 @@ import 'package:flutter_movies/features/movies/domain/repository/base_movie_repo
 
 import '../../../../core/error/failure.dart';
 
-class GetTopRatedMoviesUsecase  extends BaseUsecase<List<Movie> , NoParameters> {
+class GetTopRatedMoviesUsecase  extends BaseUsecase<List<Movie> , int> {
   final BaseMovieRepo baseMovieRepo;
   GetTopRatedMoviesUsecase(this.baseMovieRepo);
 
   @override
-  Future<Either<Failure, List<Movie>>> call(NoParameters parameters) async {
-    return await baseMovieRepo.getTopRatedMovies();
+  Future<Either<Failure, List<Movie>>> call(int pageNum) async {
+    return await baseMovieRepo.getTopRatedMovies(pageNum);
   }
 }

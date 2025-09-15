@@ -22,9 +22,9 @@ class MoviesRepo extends BaseMovieRepo {
   }
 
   @override
-  Future<Either<Failure, List<Movie>>> getPopularMovies() async {
+  Future<Either<Failure, List<Movie>>> getPopularMovies(int pageNum) async {
     try {
-      final result = await baseMovieRemoteDataSource.getPopularMovies();
+      final result = await baseMovieRemoteDataSource.getPopularMovies(pageNum);
       return Right(result);
     } on ServerException catch (failure) {
       return Left(ServerFailure(failure.errorMessageModel));
@@ -32,9 +32,9 @@ class MoviesRepo extends BaseMovieRepo {
   }
 
   @override
-  Future<Either<Failure, List<Movie>>> getTopRatedMovies() async {
+  Future<Either<Failure, List<Movie>>> getTopRatedMovies(int pageNum) async {
     try {
-      final result = await baseMovieRemoteDataSource.getTopRatedMovies();
+      final result = await baseMovieRemoteDataSource.getTopRatedMovies(pageNum);
       return Right(result);
     } on ServerException catch (failure) {
       return Left(ServerFailure(failure.errorMessageModel));

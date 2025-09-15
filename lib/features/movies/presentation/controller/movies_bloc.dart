@@ -55,7 +55,14 @@ class MoviesBloc extends Bloc<MoviesEvent, MoviesState> {
     GetPopularMoviesEvent event,
     Emitter<MoviesState> emit,
   ) async {
-    final result = await getPopularMoviesUsecase(const NoParameters());
+    if (state.hasReachedMax) return;
+    if (state.popularState == RequestState.loading && event.pageNum != 1) {
+      return;
+    }
+
+    emit(state.copyWith(popularState: RequestState.loading));
+
+    final result = await getPopularMoviesUsecase(event.pageNum);
     result.fold(
       (failure) {
         emit(
@@ -68,10 +75,14 @@ class MoviesBloc extends Bloc<MoviesEvent, MoviesState> {
         );
       },
       (movies) {
+        final hasReachedMax = movies.isEmpty || movies.length < 20;
         emit(
           state.copyWith(
-            popularMovies: movies,
+            popularMovies: event.pageNum == 1
+                ? movies
+                : [...state.popularMovies, ...movies],
             popularState: RequestState.loaded,
+            hasReachedMax: hasReachedMax,
           ),
         );
       },
@@ -82,7 +93,14 @@ class MoviesBloc extends Bloc<MoviesEvent, MoviesState> {
     GetTopRatedMoviesEvent event,
     Emitter<MoviesState> emit,
   ) async {
-    final result = await getTopRatedMoviesUsecase(const NoParameters());
+    if (state.hasReachedMax) return;
+    if (state.topRatedState == RequestState.loading && event.pageNum != 1) {
+      return;
+    }
+
+    emit(state.copyWith(topRatedState: RequestState.loading));
+
+    final result = await getTopRatedMoviesUsecase(event.pageNum);
     result.fold(
       (failure) {
         emit(
@@ -95,13 +113,32 @@ class MoviesBloc extends Bloc<MoviesEvent, MoviesState> {
         );
       },
       (movies) {
+        final hasReachedMax = movies.isEmpty || movies.length < 20;
         emit(
           state.copyWith(
-            topRatedMovies: movies,
+            topRatedMovies: event.pageNum == 1
+                ? movies
+                : [...state.topRatedMovies, ...movies],
             topRatedState: RequestState.loaded,
+            hasReachedMax: hasReachedMax,
           ),
         );
       },
     );
+  }
+
+  int _getCurrentCount(MovieCategory category) {
+    final count = category == MovieCategory.popular
+        ? state.popularMovies.length
+        : state.topRatedMovies.length;
+    return (count ~/ 20) + 1;
+  }
+
+  void fetchSeeMoreMovies(MovieCategory category) {
+    if (category == MovieCategory.popular) {
+      add(GetPopularMoviesEvent(pageNum: _getCurrentCount(category)));
+    } else {
+      add(GetTopRatedMoviesEvent(pageNum: _getCurrentCount(category)));
+    }
   }
 }
