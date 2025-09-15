@@ -60,6 +60,6 @@ The app follows **Clean Architecture**:
 
 ---
 
-## 🎥 Video
+## 🎥 Watch the video on youtube
 
-<video src="screenshots/video.mp4" width="400" controls></video>
+[![Watch the video](https://i.ytimg.com/vi/6Ig0fjouw0U/oar2.jpg?sqp=-oaymwEoCJUDENAFSFqQAgHyq4qpAxcIARUAAIhC2AEB4gEKCBgQAhgGOAFAAQ==&rs=AOn4CLDOJjbpJTGBObAf_xEMLILImM8G_w))](https://youtu.be/6Ig0fjouw0U?si=WrFhfLxQhMVI-acw )
