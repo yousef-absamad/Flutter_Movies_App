@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_movies/core/utils/enums.dart';
@@ -55,7 +54,6 @@ class _SeeMoreScreenState extends State<SeeMoreScreen> {
           final movies = widget.seeMoreArgs.category == MovieCategory.popular
               ? state.popularMovies
               : state.topRatedMovies;
-          log(movies.length.toString());
           return GridView.builder(
             controller: _scrollController,
             padding: const EdgeInsets.all(8),
