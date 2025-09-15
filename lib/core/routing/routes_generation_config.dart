@@ -37,11 +37,7 @@ class RoutesGenerationConfig {
           );
         },
       ),
-      // GoRoute(
-      //   path: AppRoutes.splashScreen,
-      //   name: AppRoutes.splashScreen,
-      //   builder: (context, state) => const SplashScreen(),
-      // ),
     ],
   );
 }
+

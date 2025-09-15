@@ -4,6 +4,7 @@ import 'package:flutter_movies/features/movies/domain/repository/base_movie_repo
 import 'package:flutter_movies/features/movies/domain/usecases/get_movie_details_usecase.dart';
 import 'package:flutter_movies/features/movies/domain/usecases/get_now_playing_movies_usecase.dart';
 import 'package:flutter_movies/features/movies/domain/usecases/get_popular_movies_usecase.dart';
+import 'package:flutter_movies/features/movies/domain/usecases/get_recommendation_usecase.dart';
 import 'package:flutter_movies/features/movies/domain/usecases/get_top_rated_movies_usecase.dart';
 import 'package:flutter_movies/features/movies/presentation/controller/movie_details_bloc.dart';
 import 'package:flutter_movies/features/movies/presentation/controller/movies_bloc.dart';
@@ -14,12 +15,13 @@ final sl = GetIt.instance;
 class ServicesLacator {
   void init() {
     sl.registerFactory(() => MoviesBloc(sl(), sl() , sl()));
-    sl.registerFactory(() => MovieDetailsBloc(sl()));
+    sl.registerFactory(() => MovieDetailsBloc(sl() , sl()));
     
     sl.registerLazySingleton(() => GetNowPlayingMoviesUsecase(sl()));
     sl.registerLazySingleton(() => GetPopularMoviesUsecase(sl()));
     sl.registerLazySingleton(() => GetTopRatedMoviesUsecase(sl()));
     sl.registerLazySingleton(() => GetMovieDetailsUsecase(sl()));
+    sl.registerLazySingleton(() => GetMovieRecommendationUsecase(sl()));
 
     sl.registerLazySingleton<BaseMovieRepo>(() => MoviesRepo(sl()));
 
