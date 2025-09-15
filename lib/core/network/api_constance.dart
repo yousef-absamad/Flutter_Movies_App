@@ -1,14 +1,25 @@
-class ApiConstance {
-  static const String baseUrl = "https://api.themoviedb.org/3";
-  static const String apiKey = "8ffaa203e0570d4ce2d6972a6329d6e9";
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-    // Endpoints
+class ApiConstance {
+  static final String baseUrl = dotenv.env['BASE_URL'] ?? "";
+  static final String apiKey = dotenv.env['API_KEY'] ?? "";
+  static final String baseIamgeUrl = dotenv.env['IMAGE_BASE_URL'] ?? "";
+
+  // Endpoints
   static const String nowPlayingEndpoint = "/movie/now_playing";
   static const String popularEndpoint = "/movie/popular";
   static const String topRatedEndpoint = "/movie/top_rated";
 
   // Full URLs with API key
-  static const String nowPlayingUrl = "$baseUrl$nowPlayingEndpoint?api_key=$apiKey";
-  static const String popularUrl = "$baseUrl$popularEndpoint?api_key=$apiKey";
-  static const String topRatedUrl = "$baseUrl$topRatedEndpoint?api_key=$apiKey";
+  static final String nowPlayingUrl = "$baseUrl$nowPlayingEndpoint?api_key=$apiKey";
+  
+  static String popularUrl(int pageNum) => "$baseUrl$popularEndpoint?api_key=$apiKey&page=$pageNum";
+  
+  static String topRatedUrl(int pageNum) => "$baseUrl$topRatedEndpoint?api_key=$apiKey&page=$pageNum";
+  
+  static String movieDetailsPath(int movieId) => "$baseUrl/movie/$movieId?api_key=$apiKey";
+  
+  static String movieRecommendationPath(int movieId) => "$baseUrl/movie/$movieId/recommendations?api_key=$apiKey";
+
+  static String imageUrl(String path) => '$baseIamgeUrl$path';
 }
