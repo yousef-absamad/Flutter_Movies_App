@@ -1,16 +1,65 @@
-# flutter_movies
+# 🎬 Flutter Movies App
 
-A new Flutter project.
+A movies application built with **Flutter** using **Clean Architecture** and clean code principles.  
+The app allows users to browse the latest movies, popular movies, and top-rated movies, with detailed information and recommendations for similar movies.
 
-## Getting Started
+---
 
-This project is a starting point for a Flutter application.
+## 🚀 Features
 
-A few resources to get you started if this is your first Flutter project:
+- **Home Screen**:
+  - 🎥 **Now Playing**
+  - 🌟 **Popular**
+  - 🏆 **Top Rated**
+- **See More Screen** to display more movies for *Popular* or *Top Rated* categories.
+- **Movie Details Screen** with:
+  - Full movie details (title, rating, overview, etc.)
+  - **Recommendations**: similar movies related to the selected one.
+- **Shimmer** effect while loading.
+- **Carousel Slider** on the home screen.
+- Smooth **animations** using animate_do.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+---
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## 🏗️ Architecture
+
+The app follows **Clean Architecture**:
+
+- **Data Layer**: handles API integration and JSON to model conversion.
+- **Domain Layer**: contains entities and use cases.
+- **Presentation Layer**: UI + state management using **BLoC**.
+
+---
+
+## 🛠️ Tech Stack
+
+- **State Management**: BLoC
+- **Dependency Injection**: get_it
+- **Navigation**: go_router
+- **Functional Programming**: dartz
+- **Environment Variables**: flutter_dotenv (for API Key & Base URL)
+- **UI Libraries**: shimmer, animate_do, carousel_slider
+
+---
+
+## 📸 Screenshots
+
+<div style="display: flex; gap: 10px;">
+  <img src="screenshots/home1.jpg" width="30%" />
+  <img src="screenshots/home2.jpg" width="30%" />
+  <img src="screenshots/popular.jpg" width="30%" />
+</div>
+
+<br/>
+
+<div style="display: flex; gap: 10px;">
+  <img src="screenshots/top_rated.jpg" width="30%" />
+  <img src="screenshots/movie_details1.jpg" width="30%" />
+  <img src="screenshots/movie_details2.jpg" width="30%" />
+</div>
+
+---
+
+## 🎥 Video
+
+<video src="screenshots/video.mp4" width="400" controls></video>
